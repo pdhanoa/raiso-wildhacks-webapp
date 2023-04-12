@@ -14,10 +14,14 @@ from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import confusion_matrix, classification_report
 
-from flask import Flask, request, jsonify, render_template
+# TODO: Install Flask and import Flask, request, jsonify, and render_template
+# from it.
+# <YOUR CODE>
 
-#create Flask app
-app = Flask(__name__)
+# TODO: Create a new Flask application object, passing __name__ as its
+# argument. Assign this object to a new variable called app.
+# Create Flask app
+# <YOUR CODE>
 
 
 # IMPORT DATASET
@@ -102,7 +106,7 @@ def preprocess(textdata):
         tweetwords = ''
         for word in tweet.split():
             # Checking if the word is a stopword.
-            #if word not in stopwordlist:
+            # if word not in stopwordlist:
             if len(word)>1:
                 # Lemmatizing the word.
                 word = wordLemm.lemmatize(word)
@@ -139,7 +143,11 @@ model.fit(X_train, y_train)
 
 
 # Flask API Route
-@app.route("/", methods = ["GET","POST"])
+# TODO: Write a decorator to register the index() function for the route
+# '/' (the root of our app). Also allow "GET" and "POST" requests to be
+# sent along your new route.
+
+# <YOUR CODE>
 def index():
     # GET webpage upon initial load
     if request.method == "GET":
@@ -156,20 +164,23 @@ def index():
 
         textdata = vectoriser.transform(preprocess(searchtext))
         sentiment = model.predict(textdata)
-        # sentiment is retured as a list, either [1] or [0]
+        # Sentiment is returned as a list, either [1] or [0]
         if sentiment[0] == 1:
             sentimenttext = "Positive"
         else:
             sentimenttext = "Negative"
-        #find ways to call the model here! and return the output
+        # Find ways to call the model here! and return the output
         return render_template("index.html", sentimenttext=sentimenttext)
 
 # New Route to About Page
-@app.route("/about", methods = ["GET"])
-def about():
-    # GET webpage upon initial load
-    if request.method == "GET":
-        return render_template("about.html")
-    
+# TODO: Write a decorator for a new function called about() that
+# will bind the URL '/about' to it ('/about' will be a new page in
+# our app). Also allow "GET" requests to be sent along your new route.
+# TODO: Write the about() function, which will be an extremely short
+# function that just returns the rendered "about.html" template file
+# upon receiving a "GET" request.
+
+# <YOUR CODE>
+
 if __name__ == "__main__":
   app.run(debug=True, use_reloader=True)
