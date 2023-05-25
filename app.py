@@ -126,7 +126,7 @@ print("Fitting vectoriser...")
 vectoriser = TfidfVectorizer(ngram_range=(1,2), max_features=500000)
 vectoriser.fit(X_train)
 print(f'Vectoriser fitted.')
-print('No. of feature_words: ', len(vectoriser.get_feature_names()))
+print('No. of feature_words: ', len(vectoriser.get_feature_names_out()))
 
 print("Transforming data...")
 X_train = vectoriser.transform(X_train)
